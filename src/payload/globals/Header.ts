@@ -16,6 +16,26 @@ export const Header: GlobalConfig = {
         link({
           appearances: false,
         }),
+        {
+          name: 'subItems',
+          label: 'Sub Items',
+          type: 'array',
+          fields: [
+            {
+              name: 'label',
+              label: 'Label',
+              type: 'text',
+              required: true,
+            },
+            {
+              name: 'link',
+              label: 'Link',
+              type: 'text',
+            },
+          ],
+
+      },
+        
       ],
     },
   ],
