@@ -5,11 +5,6 @@ import { Page } from '../../../payload/payload-types'
 import { Button, Props as ButtonProps } from '../Button'
 
 
-type SubItem = {
-  label: string
-  link: string
-}
-
 type CMSLinkType = {
   type?: 'custom' | 'reference'
   url?: string
@@ -23,7 +18,6 @@ type CMSLinkType = {
   children?: React.ReactNode
   className?: string
   invert?: ButtonProps['invert']
-  subItems?: SubItem[]
 }
 
 export const CMSLink: React.FC<CMSLinkType> = ({
@@ -36,7 +30,6 @@ export const CMSLink: React.FC<CMSLinkType> = ({
   children,
   className,
   invert,
-  subItems,
 
 }) => {
   const href =

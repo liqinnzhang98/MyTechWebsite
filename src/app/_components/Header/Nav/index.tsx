@@ -14,7 +14,6 @@ import classes from './index.module.scss'
 
 export const HeaderNav: React.FC<{ header: HeaderType }> = ({ header }) => {
   const navItems = header?.navItems || []
-  console.log(navItems)
   const { user } = useAuth()
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [showButton, setShowButton] = useState<boolean>(false);
@@ -56,7 +55,6 @@ const handleSearchClick = () => {
                 </button>
             )}
             </div>
-      <CartLink />
 
       {user && <Link href="/account">Account</Link>}
       {!user && (

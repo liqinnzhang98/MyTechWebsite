@@ -13,7 +13,7 @@ export const Header: GlobalConfig = {
       type: 'array',
       maxRows: 6,
       fields: [
-        link({ appearances: false }),
+        link({ appearances: false}),
         {
           name: 'subItems',
           label: 'Sub Items',
