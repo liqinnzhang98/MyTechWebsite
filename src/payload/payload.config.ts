@@ -10,7 +10,8 @@ import { slateEditor } from '@payloadcms/richtext-slate' // editor-import
 import dotenv from 'dotenv'
 import path from 'path'
 import { buildConfig } from 'payload/config'
-// import { s3Storage } from '@payloadcms/storage-s3'
+import { cloudStorage } from '@payloadcms/plugin-cloud-storage';
+import { s3Adapter } from '@payloadcms/plugin-cloud-storage/s3';
 
 import Categories from './collections/Categories'
 import { Media } from './collections/Media'
@@ -35,6 +36,19 @@ const generateTitle: GenerateTitle = () => {
 }
 
 const mockModulePath = path.resolve(__dirname, './emptyModuleMock.js')
+
+const adapter = s3Adapter({
+  config: {
+    credentials: {
+      accessKeyId: process.env.S3_ACCESS_KEY_ID,
+      secretAccessKey: process.env.S3_SECRET_ACCESS_KEY,
+    },
+    region: process.env.S3_REGION,
+    // Optional: Use endpoint if working with S3-compatible storage like MinIO or other services.
+    // endpoint: process.env.S3_ENDPOINT,
+  },
+  bucket: process.env.S3_BUCKET,
+});
 
 dotenv.config({
   path: path.resolve(__dirname, '../../.env'),
@@ -81,26 +95,26 @@ export default buildConfig({
     url: process.env.DATABASE_URI,
   }),
   // sharp,
-  // plugins: [
-  //   // extra plugin for supabase storage
-  //   s3Storage({
-  //     collections:{
-  //       'media': {
-  //         prefix: 'media',
-  //       },
-  //     },
-  //     bucket: process.env.S3_BUCKET,
-  //     config: {
-  //       credentials: {
-  //         accessKeyId: process.env.S3_ACCESS_KEY_ID,
-  //         secretAccessKey: process.env.S3_SECRET_ACCESS_KEY,
-  //       },
-  //       region: process.env.S3_REGION,
-  //       endpoint: process.env.S3_ENDPOINT,
-  //       forcePathStyle: true,
-  //     },
-  //   }),
-  // ],
+  // // plugins: [
+  // //   // extra plugin for supabase storage
+  // //   s3Storage({
+  // //     collections:{
+  // //       'media': {
+  // //         prefix: 'media',
+  // //       },
+  // //     },
+  // //     bucket: process.env.S3_BUCKET,
+  // //     config: {
+  // //       credentials: {
+  // //         accessKeyId: process.env.S3_ACCESS_KEY_ID,
+  // //         secretAccessKey: process.env.S3_SECRET_ACCESS_KEY,
+  // //       },
+  // //       region: process.env.S3_REGION,
+  // //       endpoint: process.env.S3_ENDPOINT,
+  // //       forcePathStyle: true,
+  // //     },
+  // //   }),
+  // // ],
   // database-adapter-config-end
   serverURL: process.env.PAYLOAD_PUBLIC_SERVER_URL,
   collections: [Pages, Products, Orders, Media, Categories, Users],
