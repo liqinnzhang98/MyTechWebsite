@@ -1,12 +1,12 @@
 .header {
   padding: 36px 0;
-  background-color: #443473;
+  background-color: #74727c;
 }
 
 .wrap {
   display: flex;
-  align-items: center; /* 'right' is not valid; use 'center' or 'flex-end' */
-  justify-content: flex-end; /* Aligns items to the right */
+  align-items: center; /* Vertically centers items */
+  justify-content: flex-start; /* Aligns items to the left */
   flex-wrap: wrap;
   gap: calc(var(--base) / 2) var(--base);
 }

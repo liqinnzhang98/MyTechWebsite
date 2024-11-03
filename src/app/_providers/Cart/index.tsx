@@ -153,33 +153,33 @@ export const CartProvider = props => {
         .filter(Boolean) as CartItem[],
     }
 
-    if (user) {
-      try {
-        const syncCartToPayload = async () => {
-          const req = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/users/${user.id}`, {
-            // Make sure to include cookies with fetch
-            credentials: 'include',
-            method: 'PATCH',
-            body: JSON.stringify({
-              cart: flattenedCart,
-            }),
-            headers: {
-              'Content-Type': 'application/json',
-            },
-          })
+    // if (user) {
+    //   try {
+    //     const syncCartToPayload = async () => {
+    //       const req = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/users/${user.id}`, {
+    //         // Make sure to include cookies with fetch
+    //         credentials: 'include',
+    //         method: 'PATCH',
+    //         body: JSON.stringify({
+    //           cart: flattenedCart,
+    //         }),
+    //         headers: {
+    //           'Content-Type': 'application/json',
+    //         },
+    //       })
 
-          if (req.ok) {
-            localStorage.setItem('cart', '[]')
-          }
-        }
+    //       if (req.ok) {
+    //         localStorage.setItem('cart', '[]')
+    //       }
+    //     }
 
-        syncCartToPayload()
-      } catch (e) {
-        console.error('Error while syncing cart to Payload.') // eslint-disable-line no-console
-      }
-    } else {
-      localStorage.setItem('cart', JSON.stringify(flattenedCart))
-    }
+    //     syncCartToPayload()
+    //   } catch (e) {
+    //     console.error('Error while syncing cart to Payload.') // eslint-disable-line no-console
+    //   }
+    // } else {
+    //   localStorage.setItem('cart', JSON.stringify(flattenedCart))
+    // }
 
     setHasInitialized(true)
   }, [user, cart])
