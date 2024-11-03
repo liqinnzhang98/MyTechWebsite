@@ -44,11 +44,10 @@ const adapter = s3Adapter({
       secretAccessKey: process.env.S3_SECRET_ACCESS_KEY,
     },
     region: process.env.S3_REGION,
-    // Optional: Use endpoint if working with S3-compatible storage like MinIO or other services.
-    // endpoint: process.env.S3_ENDPOINT,
+    // ... Other S3 configuration
   },
   bucket: process.env.S3_BUCKET,
-});
+})
 
 dotenv.config({
   path: path.resolve(__dirname, '../../.env'),
@@ -94,29 +93,8 @@ export default buildConfig({
   db: mongooseAdapter({
     url: process.env.DATABASE_URI,
   }),
-  // sharp,
-  // // plugins: [
-  // //   // extra plugin for supabase storage
-  // //   s3Storage({
-  // //     collections:{
-  // //       'media': {
-  // //         prefix: 'media',
-  // //       },
-  // //     },
-  // //     bucket: process.env.S3_BUCKET,
-  // //     config: {
-  // //       credentials: {
-  // //         accessKeyId: process.env.S3_ACCESS_KEY_ID,
-  // //         secretAccessKey: process.env.S3_SECRET_ACCESS_KEY,
-  // //       },
-  // //       region: process.env.S3_REGION,
-  // //       endpoint: process.env.S3_ENDPOINT,
-  // //       forcePathStyle: true,
-  // //     },
-  // //   }),
-  // // ],
   // database-adapter-config-end
-  serverURL: process.env.PAYLOAD_PUBLIC_SERVER_URL,
+  // serverURL: process.env.PAYLOAD_PUBLIC_SERVER_URL,
   collections: [Pages, Products, Orders, Media, Categories, Users],
   globals: [Settings, Header, Footer],
   typescript: {
@@ -125,12 +103,12 @@ export default buildConfig({
   graphQL: {
     schemaOutputFile: path.resolve(__dirname, 'generated-schema.graphql'),
   },
-  cors: ['https://checkout.stripe.com', process.env.PAYLOAD_PUBLIC_SERVER_URL || ''].filter(
-    Boolean,
-  ),
-  csrf: ['https://checkout.stripe.com', process.env.PAYLOAD_PUBLIC_SERVER_URL || ''].filter(
-    Boolean,
-  ),
+  // cors: ['https://checkout.stripe.com', process.env.PAYLOAD_PUBLIC_SERVER_URL || ''].filter(
+  //   Boolean,
+  // ),
+  // csrf: ['https://checkout.stripe.com', process.env.PAYLOAD_PUBLIC_SERVER_URL || ''].filter(
+  //   Boolean,
+  // ),
   endpoints: [
     {
       path: '/create-payment-intent',
@@ -178,6 +156,13 @@ export default buildConfig({
       generateTitle,
       uploadsCollection: 'media',
     }),
-    payloadCloud(),
+    cloudStorage({
+      collections: {
+        'media': {
+          adapter: adapter, // see docs for the adapter you want to use
+        },
+      },
+    }),
+    // payloadCloud(),
   ],
 })

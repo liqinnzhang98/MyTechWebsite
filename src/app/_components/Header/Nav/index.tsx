@@ -36,26 +36,6 @@ const handleSearchClick = () => {
         return <CMSLink key={i} {...link}  className={classes.navItem}/>
       })}
 
-
-      {/* Search Bar */}
-      <div className='container'>
-            <input
-                type="text"
-                placeholder="Search..."
-                className="input"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-            />
-            {showButton && (
-                <button
-                onClick={handleSearchClick}
-                className={`button ${showButton ? '' : 'hidden'}`}
-                >
-                Search
-                </button>
-            )}
-            </div>
-
       {user && <Link href="/account">Account</Link>}
       {!user && (
         <Button
@@ -66,7 +46,7 @@ const handleSearchClick = () => {
           onClick={() => (window.location.href = '/login')}
         />
       )}
-      {user && <CartLink />}
+      {/* {user && <CartLink />} */}
     </nav>
   )
 }

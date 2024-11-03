@@ -5,10 +5,10 @@
 
 .wrap {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
+  align-items: center; /* 'right' is not valid; use 'center' or 'flex-end' */
+  justify-content: flex-end; /* Aligns items to the right */
   flex-wrap: wrap;
-  gap: calc((--base) / 2) var(--base);
+  gap: calc(var(--base) / 2) var(--base);
 }
 
 .logo {
